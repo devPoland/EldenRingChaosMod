@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Mod Voting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+            align-items: center;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .option {
+            position: relative;
+            width: 70%;
+            height: 50px;
+            margin: 10px 0;
+            border: 2px solid white;
+            background-color: rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: rgb(73, 170, 255);
+            width: 0%;
+            transition: width 0.4s ease-in-out;
+        }
+
+        .label {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            z-index: 2;
+            font-size: 1.7rem;
+            text-shadow: 0px 0px 0.25rem rgba(18, 18, 18, 1), 
+                         0px 0px 0.25rem rgba(18, 18, 18, 1),
+                         0px 0px 0.25rem rgba(18, 18, 18, 1);
+        }
+
+        #timer {
+            font-size: 2.25rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0px 0px 0.25rem rgba(18, 18, 18, 1), 
+                         0px 0px 0.25rem rgba(18, 18, 18, 1),
+                         0px 0px 0.25rem rgba(18, 18, 18, 1);
+        }
+
+        .lastwinner {
+            font-size: 2.25rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            margin-top: 7%;
+            text-shadow: 0px 0px 0.25rem rgba(18, 18, 18, 1), 
+                         0px 0px 0.25rem rgba(18, 18, 18, 1),
+                         0px 0px 0.25rem rgba(18, 18, 18, 1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" id="optionsContainer"></div>
+
+    <div id="timer">Time Left: 30s</div>
+    
+    <div class="container" id="lastWinner"></div>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:37219");
+        
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            document.getElementById("timer").innerText = `Time Left: ${data.timer}s`;
+
+            const container = document.getElementById("optionsContainer");
+
+            const othercontainer = document.getElementById("lastWinner");
+            othercontainer.innerHTML = ""; 
+
+            if (container.children.length !== data.options.length) {
+                container.innerHTML = "";
+
+                data.options.forEach((option, index) => {
+                    let optionDiv = document.createElement("div");
+                    optionDiv.className = "option";
+
+                    let fillDiv = document.createElement("div");
+                    fillDiv.className = "fill";
+                    fillDiv.style.width = "0%";
+
+                    let labelDiv = document.createElement("div");
+                    labelDiv.className = "label";
+                    labelDiv.innerText = `${option} (0 votes)`;
+
+                    optionDiv.appendChild(fillDiv);
+                    optionDiv.appendChild(labelDiv);
+                    container.appendChild(optionDiv);
+                });
+            }
+
+            const maxVotes = Math.max(...data.votes, 1);
+            Array.from(container.children).forEach((optionDiv, index) => {
+                let fillDiv = optionDiv.querySelector(".fill");
+                let labelDiv = optionDiv.querySelector(".label");
+
+                let percentage = (data.votes[index] / maxVotes) * 100;
+                labelDiv.innerText = `${data.options[index]} (${data.votes[index]} votes)`;
+
+                if (fillDiv.style.width !== `${percentage}%`) {
+                    fillDiv.style.width = `${percentage}%`;
+                }
+            });
+
+            let last = document.createElement("div");
+            last.className = "lastwinner";
+            last.innerText = data?.lastwinner ?? "";
+            othercontainer.appendChild(last);
+        };
+
+    </script>
+
+</body>
+</html>
