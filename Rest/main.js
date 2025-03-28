@@ -170,7 +170,6 @@ function processKeypresses(actionname) {
             }, 1000);
         }, 5000);
 
-
     }else if(actionname === "No Stamina"){
         const intvid = setInterval(() => {
             ks.sendCombination(['F21', '1']);
@@ -184,7 +183,6 @@ function processKeypresses(actionname) {
                 }
             }, 1000);
         }, 5000);
-
 
     }else if(actionname === "Heal HP"){
         ks.sendCombination(['F19', '9']);
@@ -232,7 +230,6 @@ function processKeypresses(actionname) {
                 }
             }, 1000);
         }, 5000);
-        
 
     }else if(actionname === "Slow Motion"){
         ks.sendKey('F18');
@@ -331,7 +328,6 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F22', '1'])
         .sendBatch();
 
-
     }else if(actionname === "Small Player"){
         ks.startBatch()
             .batchTypeCombination(['F22'], 3000)
@@ -344,53 +340,41 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F22', '3'])
         .sendBatch();
 
-
     }else if(actionname === "Paper Mario"){
         ks.startBatch()
             .batchTypeCombination(['F22', '2'], 3000)
             .batchTypeCombination(['F22', '2'])
         .sendBatch();
 
-
     }else if(actionname === "Spawn 3 Dogs"){
 
         ks.startBatch()
-                   .batchTypeCombination(['F16', '8'], 450)
-                   
-               .sendBatch();
+            .batchTypeCombination(['F16', '8'], 450)  
+        .sendBatch();
            
-
     }else if(actionname === "Spawn 3 Rats"){
 
         ks.startBatch()
-                  .batchTypeCombination(['F16', '7'], 450)
-                  
-              .sendBatch();
+            .batchTypeCombination(['F16', '7'], 450)  
+        .sendBatch();
       
-
-        
     }else if(actionname === "Spawn 3 Hawks"){
 
-      ks.startBatch()
-                 .batchTypeCombination(['F16', '6'], 450)
-                 
-             .sendBatch();
+        ks.startBatch()
+            .batchTypeCombination(['F16', '6'], 450)
+        .sendBatch();
         
     }else if(actionname === "Spawn Promised Consort Radahn"){
 
         ks.startBatch()
-                 .batchTypeCombination(['F16', '5'], 450)
-                 
-             .sendBatch();
-     
+            .batchTypeCombination(['F16', '5'], 450)
+        .sendBatch();
 
-        
     }else if(actionname === "Spawn Fake Promised Radahn"){
 
-       ks.startBatch()
-                 .batchTypeCombination(['F16', '4'], 450)
-                
-             .sendBatch();
+        ks.startBatch()
+            .batchTypeCombination(['F16', '4'], 450)  
+        .sendBatch();
         
     }else if(actionname === "Randomise All Stats"){
 
