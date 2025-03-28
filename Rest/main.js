@@ -171,7 +171,7 @@ function processKeypresses(actionname) {
                     clearInterval(checkTimer);
 
                     setTimeout(() => {
-                        ks.sendCombination(['F22', '0']);
+                        ks.sendCombination(['F24', '1']);
                     }, 500);
                 }
             }, 1000);
@@ -198,45 +198,7 @@ function processKeypresses(actionname) {
         ks.sendCombination(['F24', '2']);
 
     }else if(actionname === "Laggy Player"){
-
-        ks.startBatch()
-            .batchTypeCombination(['F17', '5'], 100)
-            .batchTypeCombination(['F17', '6'], 100)
-            .batchTypeCombination(['F17', '1'], 100)
-        .sendBatch();
-        
-        const fixint = setInterval(() => {
-            if (!isKeyActive) { 
-                isKeyActive = true;
-                ks.sendCombination(['F17', '1']);
-                setTimeout(() => { isKeyActive = false; }, 100);
-            }
-        }, Math.floor(Math.random() * 2000) + 1000);
-        
-        const rngint = setInterval(() => {
-            if (!isKeyActive) {
-                isKeyActive = true;
-                ks.sendCombination(['F17', '2']);
-                setTimeout(() => { isKeyActive = false; }, 100);
-            }
-        }, 2000);
-        
-        setTimeout(() => {
-            const checkTimer = setInterval(() => {
-                if (timer <= 2) {
-                    clearInterval(rngint);
-                    clearInterval(fixint);
-                    clearInterval(checkTimer);
-                    isKeyActive = false;
-                    setTimeout(() => {
-                        ks.startBatch()
-                            .batchTypeCombination(['F17', '6'], 500)
-                            .batchTypeCombination(['F17', '5'], 500)
-                        .sendBatch();
-                    }, 100);
-                }
-            }, 1000);
-        }, 5000);
+       ks.sendCombination(['F17']);
 
     }else if(actionname === "Slow Motion"){
         ks.sendKey('F18');
