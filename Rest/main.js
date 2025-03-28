@@ -265,10 +265,6 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 2250)
             
         .sendBatch();
-        // last numpad7 is just a safety run,
-        // wont actually impact anything due to the timer
-        // probably would work without it? but I guess its better
-        // to have it just incase
     
     }else if(actionname === "Fake Fake Crash"){
         ks.startBatch()
@@ -440,6 +436,7 @@ function processKeypresses(actionname) {
         .sendBatch()
 
     }
+
 }
 
 
