@@ -66,7 +66,7 @@ const masterOptions = [
     "Stop Moving",
 
     "TP all NPCs to Player",
-    "TP Plaer to random NPC",
+    "TP Player to random NPC",
     "-5 or +5 to random stat",
 
     "Spawn 3 Dogs",
@@ -427,7 +427,7 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F14'])
         .sendBatch()
 
-    }else if(actionname === "TP Plaer to random NPC"){
+    }else if(actionname === "TP Player to random NPC"){
         ks.startBatch()
             .batchTypeCombination(['F14', '1'], 3000)
             .batchTypeCombination(['F14', '1'])
