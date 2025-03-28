@@ -1,5 +1,5 @@
 # **Elden Ring Chaos Mod**
-## Twitch integration Chaos Mod for Elden Ring using [tmi.js](https://tmijs.com/) and [Cheat Engine](https://www.cheatengine.org/), developed by [**Sonku**](twitch.tv/sonku___) and [**devPoland**](twitch.tv/devpoland).
+## Twitch integration Chaos Mod for Elden Ring using [tmi.js](https://tmijs.com/) and [Cheat Engine](https://www.cheatengine.org/), developed by [**Sonku**](https://twitch.tv/sonku___) and [**devPoland**](https://twitch.tv/devpoland).
 
 > [!CAUTION]
 > You need to download the latest version of [**Cheat Engine**](https://www.cheatengine.org/downloads.php) and the latest LTS version of [**Node.js**](https://nodejs.org)!
