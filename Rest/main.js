@@ -179,7 +179,7 @@ function processKeypresses(actionname) {
 
     }else if(actionname === "No Stamina"){
         const intvid = setInterval(() => {
-            ks.sendCombination(['F21', '1']);
+            ks.sendCombination(['F15']);
         }, 200);
 
         setTimeout(() => {
