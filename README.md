@@ -35,5 +35,11 @@ Spawn 3 Rats
 Spawn 3 Hawks
 Spawn Promised Consort Radahn
 Spawn Fake Promised Radahn
+Spawn Malenia
+Spawn Invisible Dark Knight's Assasin
+Give Player Random Weapon
+Give player Random Armor
+Give Player Random Talisman 
+Give Player Random Common item
 Randomise All Stats
 ```
