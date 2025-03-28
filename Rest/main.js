@@ -74,7 +74,14 @@ const masterOptions = [
     "Spawn 3 Hawks",
     "Spawn Promised Consort Radahn",
     "Spawn Fake Promised Radahn",
-    "Randomise All Stats"
+    "Randomise All Stats",
+    "GIVE RANDOM TALISMAN",
+    "GIVE RANDOM ITEM",
+    "GIVE RANDOM WEAPON",
+    "GIVE RANDOM ARMOR",
+    "SPAWN MALENIA",
+    "SPAWN INVISIBLE ASSASIN",
+    "SPAWN A FRIENDLY DOG",
 ];
 
 let currentOptions = [];
@@ -383,6 +390,48 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['numpad3'], 10)
         .sendBatch();
         
+    }else if(actionname === "SPAWN MALENIA"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f16', '3'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN INVISIBLE ASSASIN"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f16', '2'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A FRIENDLY DOG"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f16', '1'])
+        .sendBatch();
+        
+    }else if(actionname === "GIVE RANDOM WEAPON"){
+        ks.startBatch()
+            .batchTypeCombination(['F13', '1'], 3000)
+            .batchTypeCombination(['F13', '1'])
+        .sendBatch()
+
+    }else if(actionname === "GIVE RANDOM ARMOR"){
+        ks.startBatch()
+            .batchTypeCombination(['F13', '2'], 3000)
+            .batchTypeCombination(['F13', '2'])
+        .sendBatch()
+
+    }else if(actionname === "GIVE RANDOM TALISMAN"){
+        ks.startBatch()
+            .batchTypeCombination(['F13', '3'], 3000)
+            .batchTypeCombination(['F13', '3'])
+        .sendBatch()
+
+    }else if(actionname === "GIVE RANDOM ITEM"){
+        ks.startBatch()
+            .batchTypeCombination(['F13', '4'], 3000)
+            .batchTypeCombination(['F13', '4'])
+        .sendBatch()
+
     }else if(actionname === "Random Weapon"){
         ks.startBatch()
             .batchTypeCombination(['F23'], 3000)
