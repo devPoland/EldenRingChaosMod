@@ -1,8 +1,11 @@
 # **Elden Ring Chaos Mod**
-## Twitch integration Chaos Mod for Elden Ring using [tmi.js](https://tmijs.com/) and [Cheat Engine](https://www.cheatengine.org/).
+## Twitch integration Chaos Mod for Elden Ring using [tmi.js](https://tmijs.com/) and [Cheat Engine](https://www.cheatengine.org/), developed by [**Sonku**](twitch.tv/sonku___) and [**devPoland**](twitch.tv/devpoland).
+
+> [!CAUTION]
+> You need to download the latest version of [**Cheat Engine**](https://www.cheatengine.org/downloads.php) and the latest LTS version of [**Node.js**](https://nodejs.org)!
 
 
-## Current list of events:
+## **Current list of events**:
 ```
 Ultra Speed
 Hypersonic Speed
