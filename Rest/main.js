@@ -1,13 +1,39 @@
 const WebSocket = require('ws');
 const tmi = require('tmi.js');
 const ks = require('node-key-sender');
-const version = 0.8;
+const fs = require('fs').promises;
+const version = 0.9;
 
-const client = new tmi.Client({
-    channels: ['sonku___']
-});
+const client = new tmi.Client();
 
-client.connect();
+async function readChannel() {
+    try {
+        const data = await fs.readFile('config.json', 'utf8');
+        const jsonData = JSON.parse(data);
+
+        if (jsonData.channel !== '-'){
+            client.connect().then(() => {
+                client.join(`${jsonData.channel}`);
+            });
+        }else{
+            console.error([
+                "                      ",
+                "              You havent setup a channel name!               ",
+                " Go over to the 'Cheat Engine' folder and run the config.bat file!                 ",
+                "         After you've done that, re-run the start.bat file.               ",
+                "        The mod will not work without a proper channel name.               ",
+                "                      ",
+            ].join("\n"))
+        }
+
+
+        return;
+    } catch (err) {
+        console.error('Error reading or parsing the JSON file:', err);
+        return null;
+    }
+}
+readChannel();
 
 
 async function checkVer() {
@@ -26,7 +52,9 @@ async function checkVer() {
         console.error([
             "                      ",
             "     You are running an outdated version of the mod!               ",
-            " Please contact sonku or devpoland for the latest version.               ",
+            " Head over to github.com/devPoland/EldenRingChaosMod/releases               ",
+            "             For the latest mod release!               ",
+            `      Your Version: ${version} vs Latest Version: ${ver}                `,
             "                      ",
         ].join("\n"))
       }
@@ -541,10 +569,13 @@ console.log([
     "            And run +start in the chat               ",
     "                      ",
     "                      ",
-    "         Latest Update Pushed 24.02.2025               ",
-    "              Running version v0.8               ",
+    "         Latest Update Pushed 30.03.2025               ",
+    "              Running version v0.9               ",
     "             This  Version  Includes               ",
-    "          Even more logic fixes/changes               ",
-    "              Fixes for mob spawning               ",
-    "               Overall  Bug  Fixes               ",
+    "            Insane Cheat Engine Fixes               ",
+    "               Improved Stability               ",
+    "                 More triggers               ",
+    "          .bat files to automate setup               ",
+    "          We moved the project to GitHub,               ",
+    "        Which sped up our overall workflow               ",
 ].join("\n"))
