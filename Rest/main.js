@@ -110,6 +110,7 @@ const masterOptions = [
     "SPAWN MALENIA",
     "SPAWN INVISIBLE ASSASIN",
     "SPAWN A FRIENDLY DOG",
+    "Play Random Cutscene",
 ];
 
 let currentOptions = [];
@@ -263,10 +264,7 @@ function processKeypresses(actionname) {
     }else if(actionname === "Fake Fake Crash"){
         ks.startBatch()
             .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 2000)
-            .batchTypeCombination(['numpad7'], 5250)
             .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 1000)
-            .batchTypeCombination(['numpad7'], 750)
-            .batchTypeCombination(['F18', '8'], 100)
         .sendBatch();
 
     }else if(actionname === "Bad PC"){
@@ -456,6 +454,12 @@ function processKeypresses(actionname) {
         ks.startBatch()
             .batchTypeCombination(['F14', '4'], 3000)
             .batchTypeCombination(['F14', '4'])
+        .sendBatch()
+
+    }else if(actionname === "Play Random Cutscene"){
+        ks.startBatch()
+            .batchTypeCombination(['F19',], 5000)
+            .batchTypeCombination(['F19'])
         .sendBatch()
 
     }
