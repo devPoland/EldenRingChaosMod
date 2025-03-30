@@ -45,4 +45,5 @@ Give player Random Armor
 Give Player Random Talisman 
 Give Player Random Common item
 Randomise All Stats
+Play Random Cutscene
 ```
