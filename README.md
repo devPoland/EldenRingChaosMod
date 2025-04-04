@@ -47,5 +47,3 @@ Give Player Random Common item
 Randomise All Stats
 Play Random Cutscene
 ```
-
-test
