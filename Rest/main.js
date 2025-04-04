@@ -79,7 +79,7 @@ const masterOptions = [
     "Slow Motion",
     "Double Time",
     "Fake Crash",
-    "Fake Fake Crash",
+    // "Fake Fake Crash",
     "Bad PC", 
     "Aussie Simulator",
     "Ultra Zoom",
