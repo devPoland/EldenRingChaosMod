@@ -88,6 +88,7 @@ const masterOptions = [
     "Small Player",
     "Wide Player",
     "Paper Mario",
+    "Glitchy Player",
 
     "Random Weapon",
     "Random Weapon Every Second",
@@ -95,6 +96,7 @@ const masterOptions = [
 
     "TP all NPCs to Player",
     "TP Player to random NPC",
+    "Teleport to random grace",
     "-5 or +5 to random stat",
 
     "Spawn 3 Dogs",
@@ -335,6 +337,12 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F22', '3'])
         .sendBatch();
 
+    }else if(actionname === "Glitchy Player"){
+        ks.startBatch()
+            .batchTypeCombination(['F22', '4'], 3000)
+            .batchTypeCombination(['F22', '4'])
+        .sendBatch();
+
     }else if(actionname === "Paper Mario"){
         ks.startBatch()
             .batchTypeCombination(['F22', '2'], 3000)
@@ -460,6 +468,12 @@ function processKeypresses(actionname) {
         ks.startBatch()
             .batchTypeCombination(['F19',], 5000)
             .batchTypeCombination(['F19'])
+        .sendBatch()
+
+    }else if(actionname === "Teleport to random grace"){
+        ks.startBatch()
+            .batchTypeCombination(['F18', '3'], 5000)
+            .batchTypeCombination(['F18', '3'])
         .sendBatch()
 
     }
