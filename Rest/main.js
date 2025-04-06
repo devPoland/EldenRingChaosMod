@@ -98,6 +98,14 @@ const masterOptions = [
     "TP Player to random NPC",
     "Teleport to random grace",
     "-5 or +5 to random stat",
+    "-5 or +5 to Vigor",
+    "-5 or +5 to Mind",
+    "-5 or +5 to Endurance",
+    "-5 or +5 to Strength",
+    "-5 or +5 to Dexterity",
+    "-5 or +5 to Intelligence",
+    "-5 or +5 to Faith",
+    "-5 or +5 to Arcane",
 
     "Spawn 3 Dogs",
     "Spawn 3 Rats",
@@ -384,6 +392,62 @@ function processKeypresses(actionname) {
         ks.startBatch()
             .batchTypeCombination(['numpad3'], 10000)
             .batchTypeCombination(['numpad3'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Vigor"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '1'], 10000)
+            .batchTypeCombination(['numpad3', '1'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Mind"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '2'], 10000)
+            .batchTypeCombination(['numpad3', '2'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Endurance"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '3'], 10000)
+            .batchTypeCombination(['numpad3', '3'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Strength"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '4'], 10000)
+            .batchTypeCombination(['numpad3', '4'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Dexterity"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '5'], 10000)
+            .batchTypeCombination(['numpad3', '5'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Intelligence"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '6'], 10000)
+            .batchTypeCombination(['numpad3', '6'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Faith"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '7'], 10000)
+            .batchTypeCombination(['numpad3', '7'], 10)
+        .sendBatch();
+        
+    }else if(actionname === "-5 or +5 to Arcane"){
+
+        ks.startBatch()
+            .batchTypeCombination(['numpad3', '8'], 10000)
+            .batchTypeCombination(['numpad3', '8'], 10)
         .sendBatch();
         
     }else if(actionname === "SPAWN MALENIA"){
