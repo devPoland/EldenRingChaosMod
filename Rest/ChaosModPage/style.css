@@ -164,3 +164,169 @@ button:active {
     text-shadow: 0px 0px 22px rgb(157, 0, 255);
     margin-top: 2%;
 }
+
+.triggers-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgb(157, 0, 255);
+}
+
+.trigger-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 2px solid rgba(222, 222, 222, 0.3);
+    border-radius: 8px;
+    background-color: rgb(18, 18, 18);
+    transition: all 0.4s ease;
+}
+
+.trigger-item:hover {
+    border-color: rgb(157, 0, 255);
+    box-shadow: 0px 0px 22px rgb(157, 0, 255);
+}
+
+.trigger-item label {
+    flex: 1;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 0px 0px 4px rgb(157, 0, 255), 0px 0px 8px rgb(157, 0, 255);
+}
+
+.trigger-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.toggle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 60px;
+}
+
+.custom-toggle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(157, 0, 255);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-toggle.active {
+    background-color: rgb(157, 0, 255);
+    box-shadow: 0 0 6px rgb(157, 0, 255);
+}
+
+.range-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+}
+
+.range-label {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-bottom: -5%;
+    font-weight: bold;
+}
+
+.styled-slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 150px;
+    height: 6px;
+    background: rgb(18, 18, 18);
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.4s ease;
+}
+
+.styled-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgb(157, 0, 255);
+    cursor: pointer;
+    box-shadow: 0 0 4px rgb(157, 0, 255);
+}
+
+.styled-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgb(157, 0, 255);
+    cursor: pointer;
+    box-shadow: 0 0 4px rgb(157, 0, 255);
+}
+
+.inline-input {
+    width: 80px;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgb(157, 0, 255);
+    border-radius: 4px;
+    background-color: #111;
+    color: rgb(222,222,222);
+    text-align: center;
+    font-size: 0.85rem;
+    outline: none;
+    box-sizing: border-box;
+    margin-bottom: -10px;
+    margin-top: 10px;
+}
+/* whatever the fuck these margins are OMEGALUL */
+
+.inline-input:focus {
+    box-shadow: 0 0 6px rgb(157, 0, 255);
+}
+
+.ws-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+    color: rgb(222,222,222);
+    text-align: center;
+    padding: 2rem;
+    font-family: sans-serif;
+    transition: opacity 0.3s ease;
+}
+
+.ws-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ws-message h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: rgb(255, 98, 98);
+    text-shadow: 0 0 10px red;
+}
+
+.ws-message p {
+    font-size: 1.1rem;
+    color: #ccc;
+}

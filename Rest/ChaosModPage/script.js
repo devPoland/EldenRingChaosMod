@@ -2,6 +2,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const ws = new WebSocket("ws://localhost:8888");
     let cd = false;
 
+    const overlay = document.getElementById('ws-overlay');
+    const msg = document.getElementById('msg');
+    const bmsg = document.getElementById('bmsg');
+
+    ws.onopen = () => {
+        overlay.classList.add('hidden');
+    };
+    
+    ws.onerror = () => {
+        msg.textContent = '⚠ This is an error, something went wrong. ⚠';
+        bmsg.textContent = 'The console might have some useful information.';
+        overlay.classList.remove('hidden');
+    };
+    
+    ws.onclose = () => {
+        msg.textContent = '⚠ Connection Lost ⚠';
+        bmsg.innerHTML = `
+        The websocket is not connected.<br>
+        Without this, you won't be able to change the config values.<br>
+        Make sure you ran the config.bat inside the "Cheat Engine" folder.<br>
+        If the terminal window opened later than the site, refresh.
+        `;
+    
+        overlay.classList.remove('hidden');
+    };
+
     async function getData(twitchusername) {
         twitchusername = twitchusername.toLowerCase();
         const apiUrl = `https://api.ivr.fi/v2/twitch/user?login=${twitchusername}`;
@@ -17,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateJsonValue(key, value) {
         if (value === "") {
-            alert("Please enter both key and value.");
+            alert("Someting went wrong with the value parameneter.");
             return;
         }
     
@@ -45,6 +71,128 @@ document.addEventListener('DOMContentLoaded', function() {
     const cbanner = document.getElementById('cbanner');
     const cbio = document.getElementById('cbio');
     const cdisplayname = document.getElementById('cdisplayname');
+    
+    const triggersContainer = document.getElementById('triggers-container');
+
+    function renderTriggers(triggerObj) {
+        triggersContainer.innerHTML = '';
+    
+        for (const [name, config] of Object.entries(triggerObj)) {
+            const item = document.createElement('div');
+            item.className = 'trigger-item';
+    
+            const label = document.createElement('label');
+            label.textContent = name;
+    
+            const toggleContainer = document.createElement('div');
+            toggleContainer.className = 'toggle-container';
+    
+            const toggleLabel = document.createElement('span');
+            toggleLabel.textContent = 'Enabled';
+    
+            const toggle = document.createElement('div');
+            toggle.className = 'custom-toggle';
+            toggle.classList.toggle('active', config.enabled);
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                const newState = toggle.classList.contains('active');
+                updateJsonValue(`triggers.${name}.enabled`, newState);
+            });
+    
+            toggleContainer.appendChild(toggleLabel);
+            toggleContainer.appendChild(toggle);
+    
+            const rangeWrapper = document.createElement('div');
+            rangeWrapper.className = 'range-wrapper';
+    
+            const rangeLabel = document.createElement('span');
+            rangeLabel.className = 'range-label';
+            rangeLabel.textContent = `Chance: ${config.chance}`;
+
+            rangeLabel.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.min = 0;
+                input.max = 1000;
+                input.value = range.value;
+                input.className = 'inline-input';
+                rangeWrapper.replaceChild(input, rangeLabel);
+                input.focus();
+            
+                const commitChange = () => {
+                    let val = parseInt(input.value);
+                    if (isNaN(val)) val = 0;
+                    val = Math.min(1000, Math.max(0, val));
+                    range.value = val;
+                    updateJsonValue(`triggers.${name}.chance`, val);
+            
+                    rangeLabel.textContent = `Chance: ${val}`;
+                    rangeWrapper.replaceChild(rangeLabel, input);
+                };
+            
+                input.addEventListener('blur', commitChange);
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        input.blur();
+                    } else if (e.key === 'Escape') {
+                        rangeWrapper.replaceChild(rangeLabel, input);
+                    }
+                });
+            });
+    
+            const range = document.createElement('input');
+            range.type = 'range';
+            range.min = 0;
+            range.max = 1000;
+            range.value = config.chance;
+            range.className = 'styled-slider';
+            range.addEventListener('input', () => {
+                rangeLabel.textContent = `Chance: ${range.value}`;
+            });
+            range.addEventListener('change', () => {
+                updateJsonValue(`triggers.${name}.chance`, parseInt(range.value));
+            });
+    
+            rangeWrapper.appendChild(rangeLabel);
+            rangeWrapper.appendChild(range);
+    
+            const controls = document.createElement('div');
+            controls.className = 'trigger-controls';
+            controls.appendChild(toggleContainer);
+            controls.appendChild(rangeWrapper);
+    
+            item.appendChild(label);
+            item.appendChild(controls);
+            triggersContainer.appendChild(item);
+        }
+    }    
+
+    function fetchConfig(callback) {
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify({ action: 'get' }));
+        } else {
+            ws.addEventListener('open', () => {
+                ws.send(JSON.stringify({ action: 'get' }));
+            });
+        }
+    
+        ws.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            if (data.action === 'config' && data.config) {
+                callback(data.config);
+            }
+        });
+    }
+
+    function init() {
+        fetchConfig((data) => {
+            if (data.triggers) {
+                renderTriggers(data.triggers);
+            }
+        });
+    }    
+
+    init();
 
     setchannel.addEventListener('click', function() {
         const twitchChannel = inputField.value.trim();

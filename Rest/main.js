@@ -3,8 +3,20 @@ const tmi = require('tmi.js');
 const ks = require('node-key-sender');
 const fs = require('fs').promises;
 const version = 0.9;
+const config = require('./config.json');
 
 const client = new tmi.Client();
+const wss = new WebSocket.Server({ port: 37219 });
+let currentOptions = [];
+let votes = [0, 0, 0, 0];
+let lastOptions = [];
+let usersVoted = [];
+let lastwinner = null;
+let chaosStarted = false;
+
+let timer = 30;
+let maxtime = 30;
+
 
 async function readChannel() {
     try {
@@ -65,79 +77,54 @@ async function checkVer() {
 }
 checkVer();
 
-
-const wss = new WebSocket.Server({ port: 37219 });
-const masterOptions = [
-    "Ultra Speed",
-    "Hypersonic Speed",
-    "Slow Down", 
-    "Hitless Challenge", 
-    "No Stamina", 
-    "Heal HP", 
-    "Kill Player", 
-    "Laggy Player",
-    "Slow Motion",
-    "Double Time",
-    "Fake Crash",
-    // "Fake Fake Crash",
-    "Bad PC", 
-    "Aussie Simulator",
-    "Ultra Zoom",
-    "Quake Pro FOV",
-    "Giant Player",
-    "Small Player",
-    "Wide Player",
-    "Paper Mario",
-    "Glitchy Player",
-
-    "Random Weapon",
-    "Random Weapon Every Second",
-    "Stop Moving",
-
-    "TP all NPCs to Player",
-    "TP Player to random NPC",
-    "Teleport to random grace",
-    "-5 or +5 to random stat",
-    "-5 or +5 to Vigor",
-    "-5 or +5 to Mind",
-    "-5 or +5 to Endurance",
-    "-5 or +5 to Strength",
-    "-5 or +5 to Dexterity",
-    "-5 or +5 to Intelligence",
-    "-5 or +5 to Faith",
-    "-5 or +5 to Arcane",
-
-    "Spawn 3 Dogs",
-    "Spawn 3 Rats",
-    "Spawn 3 Hawks",
-    "Spawn Promised Consort Radahn",
-    "Spawn Fake Promised Radahn",
-    "Randomise All Stats",
-    "GIVE RANDOM TALISMAN",
-    "GIVE RANDOM ITEM",
-    "GIVE RANDOM WEAPON",
-    "GIVE RANDOM ARMOR",
-    "SPAWN MALENIA",
-    "SPAWN INVISIBLE ASSASIN",
-    "SPAWN A FRIENDLY DOG",
-    "Play Random Cutscene",
-];
-
-let currentOptions = [];
-let votes = [0, 0, 0, 0];
-let lastOptions = [];
-let usersVoted = [];
-let lastwinner = null;
-let chaosStarted = false;
-
-let timer = 30;
-let maxtime = 30;
+function getEnabledTriggers() {
+    return Object.entries(config.triggers)
+        .filter(([_, val]) => val.enabled)
+        .map(([name, cfg]) => ({ name, chance: cfg.chance }));
+}
 
 function pickNewOptions() {
-    let availableOptions = masterOptions.filter(opt => !lastOptions.includes(opt));
-    currentOptions = availableOptions.sort(() => 0.5 - Math.random()).slice(0, 4);
+    const enabled = getEnabledTriggers();
+    if (enabled.length === 0) {
+        currentOptions = [];
+        return;
+    }
+
+    const totalWeight = enabled.reduce((sum, t) => sum + t.chance, 0);
+    const weightedPool = [];
+
+    for (const trigger of enabled) {
+        const weight = Math.round((trigger.chance / totalWeight) * 1000);
+        if (!lastOptions.includes(trigger.name)) {
+            for (let i = 0; i < weight; i++) {
+                weightedPool.push(trigger.name);
+            }
+        }
+    }
+
+    if (weightedPool.length === 0) {
+        for (const trigger of enabled) {
+            const weight = Math.round((trigger.chance / totalWeight) * 1000);
+            for (let i = 0; i < weight; i++) {
+                weightedPool.push(trigger.name);
+            }
+        }
+    }
+
+    weightedPool.sort(() => 0.5 - Math.random());
+
+    const seen = new Set();
+    const result = [];
+    for (let i = 0; i < weightedPool.length && result.length < 4; i++) {
+        if (!seen.has(weightedPool[i])) {
+            seen.add(weightedPool[i]);
+            result.push(weightedPool[i]);
+        }
+    }
+
+    currentOptions = result;
     lastOptions = [...currentOptions];
-    votes = [0, 0, 0, 0];
+    votes = Array(currentOptions.length).fill(0);
     timer = maxtime;
 }
 
@@ -149,21 +136,6 @@ function determineWinner() {
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
-    
-    // ws.send(JSON.stringify({ timer, votes, options: currentOptions }));
-    
-    // ws.on('message', (message) => {
-    //     try {
-    //         const data = JSON.parse(message);
-    //         if (data.vote >= 1 && data.vote <= 4) {
-    //             votes[data.vote - 1]++;
-    //             broadcastState();
-    //         }
-    //     } catch (error) {
-    //         console.error('Invalid message received:', message);
-    //     }
-    // });
-
     ws.on('close', () => {
         console.log('Client disconnected');
     });
@@ -599,7 +571,7 @@ client.on('message', (channel, tags, message, self) => {
     const [first, ...rest] = message.split(" ");
     const convfirst = first.toString().toLowerCase();
 
-    if ((convfirst === '+start') && (tags.username === 'sonku___' || tags.username === 'devpoland' || tags.username === 'polishgov' || tags.username === 'poland_bot')){
+    if ((convfirst === '+start') && (tags.username === 'sonku___' || tags.username === 'devpoland' || tags.username === channel.substring(1))){
         if (chaosStarted) return console.log(`${tags.username} the chaos already started, why are we trying again?`)
 
         chaosStarted = true;
@@ -616,7 +588,7 @@ client.on('message', (channel, tags, message, self) => {
             timer = savetimer;
         }
 
-    }else if(convfirst === '+stop' && (tags.username === 'sonku___' || tags.username === 'devpoland')){
+    }else if(convfirst === '+stop' && (tags.username === 'sonku___' || tags.username === 'devpoland' || tags.username === channel.substring(1))){
         if (chaosStarted){
             chaosStarted = false;
             console.log('THE CHAOS HAS BEEN STOPPED.');
