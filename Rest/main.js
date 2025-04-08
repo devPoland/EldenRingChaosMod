@@ -90,39 +90,32 @@ function pickNewOptions() {
         return;
     }
 
-    const totalWeight = enabled.reduce((sum, t) => sum + t.chance, 0);
-    const weightedPool = [];
+    let availableTriggers = enabled.filter(trigger => !lastOptions.includes(trigger.name));
 
-    for (const trigger of enabled) {
-        const weight = Math.round((trigger.chance / totalWeight) * 1000);
-        if (!lastOptions.includes(trigger.name)) {
-            for (let i = 0; i < weight; i++) {
-                weightedPool.push(trigger.name);
+    if (availableTriggers.length === 0) {
+        availableTriggers = [...enabled];
+    }
+
+    const selected = [];
+    const remainingTriggers = [...availableTriggers];
+
+    while (selected.length < 4 && remainingTriggers.length > 0) {
+        const totalWeight = remainingTriggers.reduce((sum, t) => sum + t.chance, 0);
+        const random = Math.random() * totalWeight;
+        let currentWeight = 0;
+
+        for (const trigger of remainingTriggers) {
+            currentWeight += trigger.chance;
+            if (random <= currentWeight) {
+                selected.push(trigger.name);
+                const index = remainingTriggers.findIndex(t => t.name === trigger.name);
+                remainingTriggers.splice(index, 1);
+                break;
             }
         }
     }
 
-    if (weightedPool.length === 0) {
-        for (const trigger of enabled) {
-            const weight = Math.round((trigger.chance / totalWeight) * 1000);
-            for (let i = 0; i < weight; i++) {
-                weightedPool.push(trigger.name);
-            }
-        }
-    }
-
-    weightedPool.sort(() => 0.5 - Math.random());
-
-    const seen = new Set();
-    const result = [];
-    for (let i = 0; i < weightedPool.length && result.length < 4; i++) {
-        if (!seen.has(weightedPool[i])) {
-            seen.add(weightedPool[i]);
-            result.push(weightedPool[i]);
-        }
-    }
-
-    currentOptions = result;
+    currentOptions = selected;
     lastOptions = [...currentOptions];
     votes = Array(currentOptions.length).fill(0);
     timer = maxtime;
