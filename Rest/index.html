@@ -19,6 +19,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            container-type: inline-size;
         }
 
         .option {
@@ -46,14 +47,19 @@
         .label {
             position: absolute;
             width: 100%;
+            height: 100%;
             text-align: center;
-            line-height: 50px;
             font-weight: bold;
             z-index: 2;
             font-size: 1.7rem;
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-shadow: 0px 0px 0.25rem rgba(18, 18, 18, 1), 
-                         0px 0px 0.25rem rgba(18, 18, 18, 1),
-                         0px 0px 0.25rem rgba(18, 18, 18, 1);
+                        0px 0px 0.25rem rgba(18, 18, 18, 1),
+                        0px 0px 0.25rem rgba(18, 18, 18, 1);
         }
 
         #timer {
@@ -92,22 +98,20 @@
             document.getElementById("timer").innerText = `Time Left: ${data.timer}s`;
 
             const container = document.getElementById("optionsContainer");
-
             const othercontainer = document.getElementById("lastWinner");
-            othercontainer.innerHTML = ""; 
+            othercontainer.innerHTML = "";
 
             if (container.children.length !== data.options.length) {
                 container.innerHTML = "";
 
                 data.options.forEach((option, index) => {
-                    let optionDiv = document.createElement("div");
+                    const optionDiv = document.createElement("div");
                     optionDiv.className = "option";
 
-                    let fillDiv = document.createElement("div");
+                    const fillDiv = document.createElement("div");
                     fillDiv.className = "fill";
-                    fillDiv.style.width = "0%";
 
-                    let labelDiv = document.createElement("div");
+                    const labelDiv = document.createElement("div");
                     labelDiv.className = "label";
                     labelDiv.innerText = `${option} (0 votes)`;
 
@@ -117,24 +121,36 @@
                 });
             }
 
-            const maxVotes = Math.max(...data.votes, 1);
+            const totalVotes = data.votes.reduce((sum, val) => sum + val, 0) || 1;
+
             Array.from(container.children).forEach((optionDiv, index) => {
-                let fillDiv = optionDiv.querySelector(".fill");
-                let labelDiv = optionDiv.querySelector(".label");
+                const fillDiv = optionDiv.querySelector(".fill");
+                const labelDiv = optionDiv.querySelector(".label");
 
-                let percentage = (data.votes[index] / maxVotes) * 100;
-                labelDiv.innerText = `${data.options[index]} (${data.votes[index]} votes)`;
+                const voteCount = data.votes[index];
+                const percentage = (voteCount / totalVotes) * 100;
 
-                if (fillDiv.style.width !== `${percentage}%`) {
-                    fillDiv.style.width = `${percentage}%`;
+                labelDiv.innerText = `${data.options[index]} (${voteCount} vote${voteCount !== 1 ? "s" : ""})`;
+                fillDiv.style.width = `${percentage}%`;
+
+                labelDiv.style.fontSize = "1.7rem";
+
+                const parentWidth = optionDiv.clientWidth;
+                let fontSize = 1.7;
+
+                while (labelDiv.scrollWidth > parentWidth && fontSize > 0.6) {
+                    fontSize -= 0.05;
+                    labelDiv.style.fontSize = `${fontSize}rem`;
                 }
             });
 
-            let last = document.createElement("div");
+            const last = document.createElement("div");
             last.className = "lastwinner";
             last.innerText = data?.lastwinner ?? "";
             othercontainer.appendChild(last);
         };
+
+        // I dont like what I did, changed, but it works, and thats all that matters
 
     </script>
 
