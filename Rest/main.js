@@ -346,7 +346,7 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F16', '5'], 450)
         .sendBatch();
 
-    }else if(actionname === "Spawn Fake Promised Radahn"){
+    }else if(actionname === "Spawn Fake Promised Consort Radahn"){
 
         ks.startBatch()
             .batchTypeCombination(['F16', '4'], 450)  
