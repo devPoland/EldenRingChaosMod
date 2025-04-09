@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const triggersContainer = document.getElementById('triggers-container');
 
+    const restartButton = document.getElementById('resetbutton');
+    const randomButton = document.getElementById('randombutton');
+
     function renderTriggers(triggerObj) {
         triggersContainer.innerHTML = '';
     
@@ -184,19 +187,75 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function init() {
-        fetchConfig((data) => {
-            if (data.triggers) {
-                renderTriggers(data.triggers);
-            }
-        });
-    }    
+    let db = false;
+    fetchConfig((data) => {
+        if (data.triggers) {
+            renderTriggers(data.triggers);
+    
+            restartButton.addEventListener('click', function() {
+                if (db) return;
+                db = true;
+                setTimeout(() => { db = false }, 500);
+                const updates = [];
 
-    init();
+                for (const [name, config] of Object.entries(data.triggers)) {
+                    updates.push({ key: `triggers.${name}.enabled`, value: true });
+                    updates.push({ key: `triggers.${name}.chance`, value: config.basechance });
+                }
+            
+                ws.send(JSON.stringify({
+                    action: 'batchUpdate',
+                    updates
+                }));
+
+                ws.addEventListener('message', function handler(event) {
+                    const res = JSON.parse(event.data);
+                    if (res.status === 'success') {
+                        fetchConfig((data) => {
+                            renderTriggers(data.triggers);
+                        });
+                        ws.removeEventListener('message', handler);
+                    }
+                });
+            }); 
+
+            randomButton.addEventListener('click', function() {
+                if (db) return;
+                db = true;
+                setTimeout(() => { db = false }, 500);
+                const updates = [];
+
+                for (const [name, config] of Object.entries(data.triggers)) {
+                    const randomChance = Math.floor(Math.random() * 1001);
+                    updates.push({ key: `triggers.${name}.chance`, value: randomChance });
+                }
+            
+                ws.send(JSON.stringify({
+                    action: 'batchUpdate',
+                    updates
+                }));
+            
+                ws.addEventListener('message', function handler(event) {
+                    const res = JSON.parse(event.data);
+                    if (res.status === 'success') {
+                        fetchConfig((data) => {
+                            renderTriggers(data.triggers);
+                        });
+                        ws.removeEventListener('message', handler);
+                    }
+                });
+            }); 
+        }
+    });
+
+
 
     setchannel.addEventListener('click', function() {
         const twitchChannel = inputField.value.trim();
         updateJsonValue("channel", twitchChannel);
+        setchannel.style.animation = "none";
+        void setchannel.offsetWidth;
+        setchannel.style.animation = "success 1s ease";
     }); 
 
     submitButton.addEventListener('click', function() {
@@ -232,8 +291,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 setTimeout(() => { cd = false; sideContainer.classList.remove('visible'); }, 5000);
             }
+            submitButton.style.animation = "none";
+            void setchannel.offsetWidth;
+            submitButton.style.animation = "success 1s ease";
         } else {
-            console.log('Please enter a Twitch channel name');
+            submitButton.style.animation = "none";
+            void setchannel.offsetWidth;
+            submitButton.style.animation = "fail 1s ease";
         }
     });
 });

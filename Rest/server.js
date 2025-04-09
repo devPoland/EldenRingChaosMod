@@ -55,6 +55,35 @@ wss.on('connection', (ws) => {
                         ws.send(JSON.stringify({ status: 'success', updatedData: jsonData }));
                     });
                 });
+                
+            }else if (data.action === 'batchUpdate' && Array.isArray(data.updates)) {
+                fs.readFile(filePath, 'utf8', (err, fileData) => {
+                    if (err) return console.error('Error reading config.json:', err);
+            
+                    let jsonData;
+                    try {
+                        jsonData = JSON.parse(fileData);
+                    } catch (parseErr) {
+                        console.error('Error parsing JSON:', parseErr);
+                        return;
+                    }
+            
+                    for (const { key, value } of data.updates) {
+                        const keys = key.split('.');
+                        let target = jsonData;
+                        for (let i = 0; i < keys.length - 1; i++) {
+                            if (!target[keys[i]]) target[keys[i]] = {};
+                            target = target[keys[i]];
+                        }
+                        target[keys[keys.length - 1]] = value;
+                    }
+            
+                    const jsonString = JSON.stringify(jsonData, null, 4);
+                    fs.writeFile(filePath, jsonString, 'utf8', (err) => {
+                        if (err) return console.error('Write failed:', err);
+                        ws.send(JSON.stringify({ status: 'success', updatedData: jsonData }));
+                    });
+                });
             }
         } catch (error) {
             console.error('Error processing message:', error);

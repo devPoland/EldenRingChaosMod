@@ -3,202 +3,252 @@
     "triggers": {
         "Ultra Speed": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Hypersonic Speed": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "Slow Down": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Hitless Challenge": {
             "chance": 20,
+            "basechance": 20,
             "enabled": true
         },
         "No Stamina": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Heal HP": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Kill Player": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "Laggy Player": {
             "chance": 80,
+            "basechance": 80,
             "enabled": true
         },
         "Slow Motion": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Double Time": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Fake Crash": {
             "chance": 70,
+            "basechance": 70,
             "enabled": true
         },
         "Fake Fake Crash": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "Bad PC": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "Aussie Simulator": {
             "chance": 40,
+            "basechance": 40,
             "enabled": true
         },
         "Ultra Zoom": {
             "chance": 35,
+            "basechance": 35,
             "enabled": true
         },
         "Quake Pro FOV": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Giant Player": {
             "chance": 75,
+            "basechance": 75,
             "enabled": true
         },
         "Small Player": {
             "chance": 75,
+            "basechance": 75,
             "enabled": true
         },
         "Wide Player": {
             "chance": 75,
+            "basechance": 75,
             "enabled": true
         },
         "Paper Mario": {
             "chance": 75,
+            "basechance": 75,
             "enabled": true
         },
         "Glitchy Player": {
             "chance": 35,
+            "basechance": 35,
             "enabled": true
         },
         "Random Weapon": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Random Weapon Every Second": {
             "chance": 50,
+            "basechance": 50,
             "enabled": true
         },
         "Stop Moving": {
             "chance": 20,
+            "basechance": 20,
             "enabled": true
         },
         "TP all NPCs to Player": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "TP Player to random NPC": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "Teleport to random grace": {
             "chance": 20,
+            "basechance": 20,
             "enabled": true
         },
         "-5 or +5 to random stat": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Vigor": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Mind": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Endurance": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Strength": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Dexterity": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Intelligence": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Faith": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "-5 or +5 to Arcane": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "Spawn 3 Dogs": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "Spawn 3 Rats": {
             "chance": 80,
+            "basechance": 80,
             "enabled": true
         },
         "Spawn 3 Hawks": {
             "chance": 40,
+            "basechance": 40,
             "enabled": true
         },
         "Spawn Promised Consort Radahn": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "Spawn Fake Promised Radahn": {
             "chance": 60,
+            "basechance": 60,
             "enabled": true
         },
         "Randomise All Stats": {
             "chance": 15,
+            "basechance": 15,
             "enabled": true
         },
         "GIVE RANDOM TALISMAN": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "GIVE RANDOM ITEM": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "GIVE RANDOM WEAPON": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "GIVE RANDOM ARMOR": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "SPAWN MALENIA": {
             "chance": 10,
+            "basechance": 10,
             "enabled": true
         },
         "SPAWN INVISIBLE ASSASIN": {
             "chance": 15,
+            "basechance": 15,
             "enabled": true
         },
         "SPAWN A FRIENDLY DOG": {
             "chance": 100,
+            "basechance": 100,
             "enabled": true
         },
         "Play Random Cutscene": {
             "chance": 30,
+            "basechance": 30,
             "enabled": true
         }
     }

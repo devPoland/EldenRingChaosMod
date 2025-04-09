@@ -170,8 +170,8 @@ button:active {
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
-    padding: 1rem;
-    border-top: 1px solid rgb(157, 0, 255);
+    /* padding: 1rem; */
+    /* border-top: 1px solid rgb(157, 0, 255); */
 }
 
 .trigger-item {
@@ -329,4 +329,16 @@ button:active {
 .ws-message p {
     font-size: 1.1rem;
     color: #ccc;
+}
+
+@keyframes success {
+    0%   {color: rgb(222, 222, 222);}
+    50%  {color: rgb(111, 255, 111);  text-shadow: 0px 0px 8px rgb(111, 255, 111);}
+    100% {color: rgb(222, 222, 222);}
+}
+
+@keyframes fail {
+    0%   {color: rgb(222, 222, 222);}
+    50%  {color: rgb(255, 111, 111);  text-shadow: 0px 0px 8px rgb(255, 111, 111);}
+    100% {color: rgb(222, 222, 222);}
 }
