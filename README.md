@@ -41,7 +41,7 @@ Spawn 3 Dogs
 Spawn 3 Rats
 Spawn 3 Hawks
 Spawn Promised Consort Radahn
-Spawn Fake Promised Radahn
+pawn Fake Promised Consort Radahn
 Spawn Malenia
 Spawn Invisible Dark Knight's Assasin
 Give Player Random Weapon
@@ -50,4 +50,18 @@ Give Player Random Talisman
 Give Player Random Common item
 Randomise All Stats
 Play Random Cutscene
+Teleport to random grace
+-5 or +5 to Vigor
+-5 or +5 to Mind
+-5 or +5 to Endurance
+-5 or +5 to Strength
+-5 or +5 to Dexterity
+-5 or +5 to Intelligence
+-5 or +5 to Faith
+-5 or +5 to Arcane
+GIVE RANDOM TALISMAN
+GIVE RANDOM ITEM
+GIVE RANDOM WEAPON
+GIVE RANDOM ARMOR
+SPAWN A FRIENDLY DOG
 ```
