@@ -433,6 +433,48 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['f16', '1'])
         .sendBatch();
         
+    }else if(actionname === "SPAWN A POT FRIEND"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f16', '9'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN POTFRIEND GANG"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f16', '0'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A FRIENDLY TICHE"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f17', '1'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A GIANT RAT"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f17', '2'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A FRIENDLY GIANT RAT"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f17', '3'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A DRAGON"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f17', '4'])
+        .sendBatch();
+        
+    }else if(actionname === "SPAWN A FRIENDLY DRAGON"){
+
+        ks.startBatch()
+            .batchTypeCombination(['f17', '5'])
+        .sendBatch();
+        
     }else if(actionname === "GIVE RANDOM WEAPON"){
         ks.startBatch()
             .batchTypeCombination(['F13', '1'], 3000)
