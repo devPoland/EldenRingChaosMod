@@ -2,11 +2,14 @@ const WebSocket = require('ws');
 const tmi = require('tmi.js');
 const ks = require('node-key-sender');
 const fs = require('fs').promises;
-const version = 0.9;
+const version = "1.0";
 const config = require('./config.json');
+const http = require('http');
+const path = require('path');
 
 const client = new tmi.Client();
 const wss = new WebSocket.Server({ port: 37219 });
+
 let currentOptions = [];
 let votes = [0, 0, 0, 0];
 let lastOptions = [];
@@ -17,6 +20,17 @@ let chaosStarted = false;
 let timer = 30;
 let maxtime = 30;
 
+const filePath = path.join(__dirname, 'index.html');
+http.createServer(async (req, res) => {
+    try {
+        const data = await fs.readFile(filePath);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(data);
+    } catch (err) {
+        res.writeHead(500);
+        res.end('Internal Server Error');
+    }
+}).listen(8008);
 
 async function readChannel() {
     try {
@@ -658,13 +672,17 @@ console.log([
     "            And run +start in the chat               ",
     "                      ",
     "                      ",
-    "         Latest Update Pushed 30.03.2025               ",
-    "              Running version v0.9               ",
+    `              Running version v${version}               `,
     "             This  Version  Includes               ",
     "            Insane Cheat Engine Fixes               ",
     "               Improved Stability               ",
-    "                 More triggers               ",
+    "                 More triggers,               ",
+    "              like,  a  lot  more               ",
     "          .bat files to automate setup               ",
+    "               New config website               ",
+    "       Ability to enable/disable triggers               ",
+    "             And to change their odds               ",
+    "             New method for triggers               ",
     "          We moved the project to GitHub,               ",
     "        Which sped up our overall workflow               ",
 ].join("\n"))
