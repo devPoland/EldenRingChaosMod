@@ -66,9 +66,5 @@ Teleport to random grace
 -5 or +5 to Intelligence
 -5 or +5 to Faith
 -5 or +5 to Arcane
-GIVE RANDOM TALISMAN
-GIVE RANDOM ITEM
-GIVE RANDOM WEAPON
-GIVE RANDOM ARMOR
 SPAWN A FRIENDLY DOG
 ```
