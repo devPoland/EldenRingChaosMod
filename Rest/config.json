@@ -250,6 +250,41 @@
             "chance": 30,
             "basechance": 30,
             "enabled": true
+        },
+        "SPAWN A POT FRIEND": {
+            "chance": 80,
+            "basechance": 80,
+            "enabled": true
+        },
+        "SPAWN POTFRIEND GANG": {
+            "chance": 50,
+            "basechance": 50,
+            "enabled": true
+        },
+        "SPAWN A FRIENDLY TICHE": {
+            "chance": 20,
+            "basechance": 20,
+            "enabled": true
+        },
+        "SPAWN A GIANT RAT": {
+            "chance": 40,
+            "basechance": 40,
+            "enabled": true
+        },
+        "SPAWN A FRIENDLY GIANT RAT": {
+            "chance": 40,
+            "basechance": 40,
+            "enabled": true
+        },
+        "SPAWN A DRAGON": {
+            "chance": 10,
+            "basechance": 10,
+            "enabled": true
+        },
+        "SPAWN A FRIENDLY DRAGON": {
+            "chance": 10,
+            "basechance": 10,
+            "enabled": true
         }
     }
 }

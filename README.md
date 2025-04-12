@@ -44,6 +44,13 @@ Spawn Promised Consort Radahn
 pawn Fake Promised Consort Radahn
 Spawn Malenia
 Spawn Invisible Dark Knight's Assasin
+Spawn a Pot Friend
+Spawn Pot Friend Gang
+Spawn a friendly Tiche
+Spawn a Giant Rat
+Spawn a friendly Giant Rat
+Spawn a Dragon
+Spawn a friendly Dragon
 Give Player Random Weapon
 Give player Random Armor
 Give Player Random Talisman 
