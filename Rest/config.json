@@ -56,11 +56,6 @@
             "basechance": 70,
             "enabled": true
         },
-        "Fake Fake Crash": {
-            "chance": 10,
-            "basechance": 10,
-            "enabled": true
-        },
         "Bad PC": {
             "chance": 60,
             "basechance": 60,

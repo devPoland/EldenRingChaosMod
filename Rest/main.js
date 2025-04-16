@@ -249,12 +249,6 @@ function processKeypresses(actionname) {
             .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 2250)
             
         .sendBatch();
-    
-    }else if(actionname === "Fake Fake Crash"){
-        ks.startBatch()
-            .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 2000)
-            .batchTypeCombination(['F18', '2'], Math.floor(Math.random() * 2000) + 1000)
-        .sendBatch();
 
     }else if(actionname === "Bad PC"){
         let state = false;
